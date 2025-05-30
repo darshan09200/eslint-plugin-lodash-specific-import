@@ -1,42 +1,70 @@
+
 # eslint-plugin-lodash-specific-import
 
-## Installation
+[![npm version](https://img.shields.io/npm/v/eslint-plugin-lodash-specific-import.svg)](https://www.npmjs.com/package/eslint-plugin-lodash-specific-import)
+[![npm downloads](https://img.shields.io/npm/dm/eslint-plugin-lodash-specific-import.svg)](https://www.npmjs.com/package/eslint-plugin-lodash-specific-import)
+[![License: MIT](https://img.shields.io/github/license/darshan09200/eslint-plugin-lodash-specific-import?color=green)](./LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/darshan09200/eslint-plugin-lodash-specific-import/pulls)
+[![Docs](https://img.shields.io/badge/docs-auto--generated-blue)](#rules)
 
-You'll first need to install [ESLint](https://eslint.org/):
+A lightweight ESLint plugin to enforce specific lodash imports.
+**Keep your bundles smaller and your imports cleaner!**
 
-```sh
-yarn add eslint -D
+---
+
+## ✨ Features
+
+* Prevents full lodash imports (`import _ from 'lodash'`)
+* Enforces specific function imports (`import debounce from 'lodash/debounce'`)
+* Simple drop-in ESLint rule
+* **Auto-generated documentation** using [eslint-doc-generator](https://github.com/eslint/eslint-doc-generator)
+
+---
+
+## 📦 Installation
+
+```bash
+npm install --save-dev eslint-plugin-lodash-specific-import
+# or
+yarn add --dev eslint-plugin-lodash-specific-import
 ```
 
-Next, install `eslint-plugin-lodash-specific-import`:
+---
 
-```sh
-yarn add eslint-plugin-lodash-specific-import -D
-```
+## 🚀 Usage
 
-## Usage
-
-Add `lodash-specific-import` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
+Add to your ESLint config (e.g., `.eslintrc.json`):
 
 ```json
 {
-    "plugins": [
-        "lodash-specific-import"
-    ]
+  "plugins": ["lodash-specific-import"],
+  "rules": {
+    "lodash-specific-import/no-global": "error"
+  }
 }
 ```
 
-Then configure the rules you want to use under the rules section.
+---
 
-```json
-{
-    "rules": {
-        "lodash-specific-import/no-global": 2
-    }
-}
+## 🔍 Rule Example
+
+**✅ Good:**
+
+```js
+import debounce from 'lodash/debounce';
+import isEmpty from 'lodash/isEmpty';
 ```
 
-## Rules
+**❌ Bad:**
+
+```js
+import _ from 'lodash';
+const lodash = require('lodash');
+```
+
+---
+
+## 📚 Rules
 
 <!-- begin auto-generated rules list -->
 
@@ -47,3 +75,31 @@ Then configure the rules you want to use under the rules section.
 | [no-global](docs/rules/no-global.md) | enforce method-specific lodash imports | 🔧 |
 
 <!-- end auto-generated rules list -->
+
+---
+
+## 📝 Motivation
+
+Importing all of lodash can significantly bloat your JS bundle.
+This plugin ensures you only import the functions you need, improving performance and clarity.
+
+---
+
+## 🙌 Contributing
+
+Contributions, issues, and PRs are welcome!
+Feel free to [open an issue](https://github.com/darshan09200/eslint-plugin-lodash-specific-import/issues) or [submit a PR](https://github.com/darshan09200/eslint-plugin-lodash-specific-import/pulls).
+
+---
+
+## 📄 License
+
+MIT
+
+---
+
+## 💡 Author
+
+[Darshan Jain](https://github.com/darshan09200)
+
+---
