@@ -1,13 +1,13 @@
 {
   "name": "eslint-plugin-lodash-specific-import",
   "version": "1.0.0-alpha.1",
-  "description": "Some description",
+  "description": "An ESLint plugin to enforce specific lodash imports, preventing global or named imports from 'lodash'.",
   "keywords": [
     "eslint",
     "eslintplugin",
     "eslint-plugin"
   ],
-  "author": "Darshan Jain<djainj86@gmail.com>",
+  "author": "Darshan Jain <djainj86@gmail.com>",
   "main": "./lib/index.js",
   "exports": "./lib/index.js",
   "scripts": {
@@ -36,5 +36,13 @@
   "peerDependencies": {
     "eslint": ">=7"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/darshan09200/eslint-plugin-lodash-specific-import.git"
+  },
+  "bugs": {
+    "url": "https://github.com/darshan09200/eslint-plugin-lodash-specific-import/issues"
+  },
+  "homepage": "https://github.com/darshan09200/eslint-plugin-lodash-specific-import#readme"
 }
