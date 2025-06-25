@@ -17,13 +17,13 @@ ruleTester.run("lodash-specific-import/no-global", rule, {
     {
       code: "import { map } from 'lodash';",
       errors: [{ messageId: "invalidImport" }],
-      output: "import map from 'lodash/map';\n",
+      output: "import map from 'lodash/map';",
     },
     {
       code: "import {isEmpty, map} from 'lodash';",
       errors: [{ messageId: "invalidImport" }],
       output:
-        "import isEmpty from 'lodash/isEmpty';\nimport map from 'lodash/map';\n",
+        "import isEmpty from 'lodash/isEmpty';\nimport map from 'lodash/map';",
     },
     {
       code: "import _ from 'lodash';",
