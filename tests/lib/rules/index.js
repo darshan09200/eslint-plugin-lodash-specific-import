@@ -11,6 +11,8 @@ ruleTester.run("lodash-specific-import/no-global", rule, {
   valid: [
     "import map from 'lodash/map';",
     "import type { Map } from 'lodash';",
+    "import map from 'lodash-es/map';",
+    "import type { Map } from 'lodash-es';",
   ],
 
   invalid: [
@@ -38,7 +40,33 @@ ruleTester.run("lodash-specific-import/no-global", rule, {
     {
       code: "const { map } = require('lodash');",
       errors: [{ messageId: "invalidImport" }],
-      output: null, // Output is null because automatic fixing is not supported for this case
+      output: null,
+    },
+    {
+      code: "import { map } from 'lodash-es';",
+      errors: [{ messageId: "invalidImport" }],
+      output: "import map from 'lodash-es/map';",
+    },
+    {
+      code: "import {isEmpty, map} from 'lodash-es';",
+      errors: [{ messageId: "invalidImport" }],
+      output:
+        "import isEmpty from 'lodash-es/isEmpty';\nimport map from 'lodash-es/map';",
+    },
+    {
+      code: "import _ from 'lodash-es';",
+      errors: [{ messageId: "invalidDefaultImport" }],
+      output: null,
+    },
+    {
+      code: "const _ = require('lodash-es');",
+      errors: [{ messageId: "invalidDefaultImport" }],
+      output: null,
+    },
+    {
+      code: "const { map } = require('lodash-es');",
+      errors: [{ messageId: "invalidImport" }],
+      output: null,
     },
   ],
 });
