@@ -14,8 +14,8 @@ A lightweight ESLint plugin to enforce specific lodash imports.
 
 ## ✨ Features
 
-* Prevents full lodash imports (`import _ from 'lodash'`)
-* Enforces specific function imports (`import debounce from 'lodash/debounce'`)
+* Prevents full lodash imports (`import _ from 'lodash'` or `import _ from 'lodash-es'`)
+* Enforces specific function imports (`import debounce from 'lodash/debounce'` or `import debounce from 'lodash-es/debounce'`)
 * Simple drop-in ESLint rule
 * **Auto-generated documentation** using [eslint-doc-generator](https://github.com/eslint/eslint-doc-generator)
 
@@ -53,13 +53,17 @@ Add to your ESLint config (e.g., `.eslintrc.json`):
 ```js
 import debounce from 'lodash/debounce';
 import isEmpty from 'lodash/isEmpty';
+import debounce from 'lodash-es/debounce';
+import isEmpty from 'lodash-es/isEmpty';
 ```
 
 **❌ Bad:**
 
 ```js
 import _ from 'lodash';
+import _ from 'lodash-es';
 const lodash = require('lodash');
+const lodashEs = require('lodash-es');
 ```
 
 ---
