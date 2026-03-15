@@ -2,6 +2,9 @@ const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
+const eslintMajor = Number(require("eslint/package.json").version.split(".")[0]);
+const disableLookupFlag = eslintMajor >= 9 ? "--no-config-lookup" : "--no-eslintrc";
+const supportsLegacyEslintrc = eslintMajor < 10;
 
 const repoRoot = path.resolve(__dirname, "../..");
 const eslintBin = path.resolve(repoRoot, "node_modules/.bin/eslint");
@@ -32,7 +35,10 @@ function normalizeMessages(messages) {
 }
 
 describe("legacy and flat config parity", () => {
-  it("reports equivalent diagnostics for same invalid source", () => {
+  it("reports equivalent diagnostics for same invalid source", function runParityCheck() {
+    if (!supportsLegacyEslintrc) {
+      this.skip();
+    }
     const source = fs.readFileSync(
       path.resolve(repoRoot, "tests/fixtures/legacy/invalid.js"),
       "utf8"
@@ -42,7 +48,7 @@ describe("legacy and flat config parity", () => {
     const flatTarget = "tests/fixtures/flat/invalid.js";
 
     const legacyResult = runEslint([
-      "--no-eslintrc",
+      disableLookupFlag,
       "--config",
       "tests/fixtures/legacy/.eslintrc.cjs",
       "--stdin",
