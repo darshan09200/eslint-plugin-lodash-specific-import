@@ -8,6 +8,12 @@
     "eslint-plugin"
   ],
   "author": "Darshan Jain <djainj86@gmail.com>",
+  "files": [
+    "lib",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
   "main": "./lib/index.js",
   "exports": {
     ".": {
@@ -17,6 +23,8 @@
     }
   },
   "scripts": {
+    "check:docs": "npm run lint:eslint-docs",
+    "check:pack": "npm pack --dry-run --cache /tmp/eslint-plugin-lodash-specific-import-npm-cache > /dev/null",
     "lint": "npm-run-all \"lint:*\"",
     "lint:eslint-docs": "npm-run-all \"update:eslint-docs --check \"",
     "lint:js": "eslint . --ignore-pattern \"tests/fixtures/**\"",
