@@ -9,7 +9,13 @@
   ],
   "author": "Darshan Jain <djainj86@gmail.com>",
   "main": "./lib/index.js",
-  "exports": "./lib/index.js",
+  "exports": {
+    ".": {
+      "require": "./lib/index.js",
+      "import": "./lib/index.mjs",
+      "default": "./lib/index.js"
+    }
+  },
   "scripts": {
     "lint": "npm-run-all \"lint:*\"",
     "lint:eslint-docs": "npm-run-all \"update:eslint-docs --check \"",
@@ -31,10 +37,10 @@
     "typescript": "^5.3.3"
   },
   "engines": {
-    "node": "^14.17.0 || ^16.0.0 || >= 18.0.0"
+    "node": ">=20.0.0"
   },
   "peerDependencies": {
-    "eslint": ">=7"
+    "eslint": "^8.0.0 || ^9.0.0 || ^10.0.0"
   },
   "license": "MIT",
   "repository": {
