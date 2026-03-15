@@ -2,6 +2,9 @@ const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
+const eslintMajor = Number(require("eslint/package.json").version.split(".")[0]);
+const disableLookupFlag = eslintMajor >= 9 ? "--no-config-lookup" : "--no-eslintrc";
+const supportsLegacyEslintrc = eslintMajor < 10;
 
 function runEslint(args, stdin, env = {}) {
   const eslintBin = path.resolve(__dirname, "../../node_modules/.bin/eslint");
@@ -20,12 +23,15 @@ function runEslint(args, stdin, env = {}) {
 }
 
 describe("legacy eslintrc integration", () => {
-  it("enforces no-global through .eslintrc config", () => {
+  it("enforces no-global through .eslintrc config", function runLegacyConfigTest() {
+    if (!supportsLegacyEslintrc) {
+      this.skip();
+    }
     const sourcePath = "tests/fixtures/legacy/invalid.js";
     const target = "tests/fixtures/legacy/invalid.js";
     const source = fs.readFileSync(path.resolve(__dirname, "../..", sourcePath), "utf8");
     const result = runEslint([
-      "--no-eslintrc",
+      disableLookupFlag,
       "--config",
       "tests/fixtures/legacy/.eslintrc.cjs",
       "--stdin",
