@@ -72,11 +72,13 @@ const lodashEs = require('lodash-es');
 
 <!-- begin auto-generated rules list -->
 
+💼 Configurations enabled in.\
+✅ Set in the `recommended` configuration.\
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
 
-| Name                                 | Description                            | 🔧 |
-| :----------------------------------- | :------------------------------------- | :- |
-| [no-global](docs/rules/no-global.md) | enforce method-specific lodash imports | 🔧 |
+| Name                                 | Description                            | 💼 | 🔧 |
+| :----------------------------------- | :------------------------------------- | :- | :- |
+| [no-global](docs/rules/no-global.md) | enforce method-specific lodash imports | ✅  | 🔧 |
 
 <!-- end auto-generated rules list -->
 
