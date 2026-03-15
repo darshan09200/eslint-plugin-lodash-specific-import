@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
 const eslintMajor = Number(require("eslint/package.json").version.split(".")[0]);
-const disableLookupFlag = eslintMajor >= 9 ? "--no-config-lookup" : "--no-eslintrc";
+const disableLookupFlag = "--no-eslintrc";
 const supportsLegacyEslintrc = eslintMajor < 10;
 
 const repoRoot = path.resolve(__dirname, "../..");
@@ -56,7 +56,7 @@ describe("legacy and flat config parity", () => {
       legacyTarget,
       "--format",
       "json",
-    ], source);
+    ], source, { ESLINT_USE_FLAT_CONFIG: "false" });
 
     const flatResult = runEslint([
       "--config",

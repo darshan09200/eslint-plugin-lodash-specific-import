@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const { execFileSync } = require("child_process");
 const eslintMajor = Number(require("eslint/package.json").version.split(".")[0]);
-const disableLookupFlag = eslintMajor >= 9 ? "--no-config-lookup" : "--no-eslintrc";
+const disableLookupFlag = "--no-eslintrc";
 const supportsLegacyEslintrc = eslintMajor < 10;
 
 function runEslint(args, stdin, env = {}) {
@@ -39,7 +39,7 @@ describe("legacy eslintrc integration", () => {
       target,
       "--format",
       "json",
-    ], source);
+    ], source, { ESLINT_USE_FLAT_CONFIG: "false" });
 
     assert.strictEqual(result.length, 1);
     assert.strictEqual(result[0].filePath.endsWith(target), true);
