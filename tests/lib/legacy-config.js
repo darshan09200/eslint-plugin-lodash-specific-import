@@ -2,7 +2,7 @@ const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
 const eslintMajor = Number(require("eslint/package.json").version.split(".")[0]);
-const disableLookupFlag = eslintMajor >= 9 ? "--no-config-lookup" : "--no-eslintrc";
+const disableLookupFlag = "--no-eslintrc";
 const supportsLegacyEslintrc = eslintMajor < 10;
 const { repoRoot, runEslintJson, toRepoPath } = require("./helpers/eslint-runner");
 
@@ -23,7 +23,7 @@ describe("legacy eslintrc integration", () => {
       target,
       "--format",
       "json",
-    ], { stdin: source });
+    ], { stdin: source, env: { ESLINT_USE_FLAT_CONFIG: "false" } });
 
     assert.strictEqual(result.length, 1);
     const reportedPath = toRepoPath(result[0].filePath);
