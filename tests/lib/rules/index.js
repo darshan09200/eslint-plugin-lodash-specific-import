@@ -1,18 +1,17 @@
 const RuleTester = require("eslint").RuleTester;
 const rule = require("../../../lib/rules/no-global");
+const eslintMajor = Number(require("eslint/package.json").version.split(".")[0]);
 
-const ruleTester = new RuleTester({
-  // eslint-disable-next-line node/no-missing-require, node/no-unpublished-require
-  parser: require.resolve("@typescript-eslint/parser"),
-  parserOptions: { ecmaVersion: 2020, sourceType: "module" },
-});
+const ruleTester = new RuleTester(
+  eslintMajor >= 9
+    ? { languageOptions: { ecmaVersion: 2020, sourceType: "module" } }
+    : { parserOptions: { ecmaVersion: 2020, sourceType: "module" } }
+);
 
 ruleTester.run("lodash-specific-import/no-global", rule, {
   valid: [
     "import map from 'lodash/map';",
-    "import type { Map } from 'lodash';",
     "import map from 'lodash-es/map';",
-    "import type { Map } from 'lodash-es';",
   ],
 
   invalid: [

@@ -19,8 +19,8 @@
   "scripts": {
     "lint": "npm-run-all \"lint:*\"",
     "lint:eslint-docs": "npm-run-all \"update:eslint-docs --check \"",
-    "lint:js": "eslint .",
-    "test": "mocha tests --recursive",
+    "lint:js": "eslint . --ignore-pattern \"tests/fixtures/**\"",
+    "test": "mocha tests/lib --recursive",
     "update:eslint-docs": "eslint-doc-generator"
   },
   "dependencies": {
