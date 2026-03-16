@@ -88,12 +88,6 @@ module.exports = [
   * ESLint 10: flat `eslint.config.*` only
 * Module support: CommonJS + ESM entrypoints
 
-### Migration Notes (alpha)
-
-* Prefer the flat config format for new projects.
-* Legacy `.eslintrc*` remains supported for ESLint 8/9 (ESLint 10 is flat-config-only).
-* Rule fixer hardening for alias/mixed-import edge cases is deferred to a follow-up PR.
-
 ---
 
 ## 🔍 Rule Example
@@ -138,6 +132,18 @@ const lodashEs = require('lodash-es');
 
 Importing all of lodash can significantly bloat your JS bundle.
 This plugin ensures you only import the functions you need, improving performance and clarity.
+
+---
+
+## 🔄 Migration
+
+Moving from v1 to v2?
+
+* Prefer flat config for new projects.
+* Legacy `.eslintrc*` remains available for ESLint 8/9.
+* ESLint 10 requires flat config.
+* Rule-fixer hardening for alias/mixed-import edge cases is deferred to a follow-up PR.
+* Full guide: [Migrate to v2](docs/migration/migrate-to-v2.md)
 
 ---
 
