@@ -9,7 +9,7 @@ const eslintBin = path.join(
 );
 
 function runEslintJson(args, { stdin = "", env = {} } = {}) {
-  let output = "";
+  let output;
 
   try {
     output = execFileSync(process.execPath, [eslintBin, ...args], {
