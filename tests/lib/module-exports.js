@@ -1,7 +1,10 @@
 const assert = require("assert");
+const { resolve } = require("path");
+const { pathToFileURL } = require("url");
 
 const cjsPlugin = require("../../lib/index.js");
-const importEsm = new Function("path", "return import(path);");
+const importEsm = (relativePath) =>
+  import(pathToFileURL(resolve(__dirname, relativePath)).href);
 
 describe("module export parity", () => {
   it("loads plugin via cjs require", () => {
