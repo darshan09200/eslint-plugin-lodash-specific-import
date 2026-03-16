@@ -2,7 +2,7 @@ const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
 const eslintMajor = Number(require("eslint/package.json").version.split(".")[0]);
-const disableLookupFlag = eslintMajor >= 9 ? "--no-config-lookup" : "--no-eslintrc";
+const disableLookupFlag = "--no-eslintrc";
 const supportsLegacyEslintrc = eslintMajor < 10;
 const { repoRoot, runEslintJson } = require("./helpers/eslint-runner");
 
@@ -38,7 +38,7 @@ describe("legacy and flat config parity", () => {
       legacyTarget,
       "--format",
       "json",
-    ], { stdin: source });
+    ], { stdin: source, env: { ESLINT_USE_FLAT_CONFIG: "false" } });
 
     const flatResult = runEslintJson([
       "--config",

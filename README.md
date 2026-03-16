@@ -62,6 +62,38 @@ module.exports = [
 }
 ```
 
+### Flat Config (`eslint.config.cjs` / `eslint.config.js`)
+
+```js
+const lodashSpecificImportPlugin = require("eslint-plugin-lodash-specific-import");
+
+module.exports = [
+  {
+    plugins: {
+      "lodash-specific-import": lodashSpecificImportPlugin,
+    },
+    rules: {
+      "lodash-specific-import/no-global": "error",
+    },
+  },
+];
+```
+
+### Compatibility (v2.0.0-alpha track)
+
+* Node.js: `>=22`
+* ESLint: `^8 || ^9 || ^10`
+* Config styles:
+  * ESLint 8/9: legacy `.eslintrc*` and flat `eslint.config.*`
+  * ESLint 10: flat `eslint.config.*` only
+* Module support: CommonJS + ESM entrypoints
+
+### Migration Notes (alpha)
+
+* Prefer the flat config format for new projects.
+* Legacy `.eslintrc*` remains supported for ESLint 8/9 (ESLint 10 is flat-config-only).
+* Rule fixer hardening for alias/mixed-import edge cases is deferred to a follow-up PR.
+
 ---
 
 ## 🔍 Rule Example
