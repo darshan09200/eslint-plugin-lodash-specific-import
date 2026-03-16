@@ -1,30 +1,14 @@
 const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
-const { execFileSync } = require("child_process");
-
-function runFlatEslint(args, stdin) {
-  const eslintBin = path.resolve(__dirname, "../../node_modules/.bin/eslint");
-  let output = "";
-  try {
-    output = execFileSync(eslintBin, args, {
-      cwd: path.resolve(__dirname, "../.."),
-      env: { ...process.env, ESLINT_USE_FLAT_CONFIG: "true" },
-      encoding: "utf8",
-      input: stdin,
-    });
-  } catch (error) {
-    output = error.stdout;
-  }
-  return JSON.parse(output);
-}
+const { repoRoot, runEslintJson, toRepoPath } = require("./helpers/eslint-runner");
 
 describe("flat config integration", () => {
   it("enforces no-global through eslint.config", () => {
     const sourcePath = "tests/fixtures/flat/invalid.js";
     const target = "tests/fixtures/flat/invalid.js";
-    const source = fs.readFileSync(path.resolve(__dirname, "../..", sourcePath), "utf8");
-    const result = runFlatEslint([
+    const source = fs.readFileSync(path.resolve(repoRoot, sourcePath), "utf8");
+    const result = runEslintJson([
       "--config",
       "tests/fixtures/flat/eslint.config.cjs",
       "--stdin",
@@ -32,10 +16,11 @@ describe("flat config integration", () => {
       target,
       "--format",
       "json",
-    ], source);
+    ], { stdin: source, env: { ESLINT_USE_FLAT_CONFIG: "true" } });
 
     assert.strictEqual(result.length, 1);
-    assert.strictEqual(result[0].filePath.endsWith(target), true);
+    const reportedPath = toRepoPath(result[0].filePath);
+    assert.strictEqual(reportedPath, target);
     assert.strictEqual(result[0].messages.length, 1);
     assert.strictEqual(
       result[0].messages[0].ruleId,

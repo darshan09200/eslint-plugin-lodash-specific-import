@@ -1,26 +1,10 @@
 const assert = require("assert");
 const fs = require("fs");
 const path = require("path");
-const { execFileSync } = require("child_process");
 const eslintMajor = Number(require("eslint/package.json").version.split(".")[0]);
 const disableLookupFlag = eslintMajor >= 9 ? "--no-config-lookup" : "--no-eslintrc";
 const supportsLegacyEslintrc = eslintMajor < 10;
-
-function runEslint(args, stdin, env = {}) {
-  const eslintBin = path.resolve(__dirname, "../../node_modules/.bin/eslint");
-  let output = "";
-  try {
-    output = execFileSync(eslintBin, args, {
-      cwd: path.resolve(__dirname, "../.."),
-      env: { ...process.env, ...env },
-      encoding: "utf8",
-      input: stdin,
-    });
-  } catch (error) {
-    output = error.stdout;
-  }
-  return JSON.parse(output);
-}
+const { repoRoot, runEslintJson, toRepoPath } = require("./helpers/eslint-runner");
 
 describe("legacy eslintrc integration", () => {
   it("enforces no-global through .eslintrc config", function runLegacyConfigTest() {
@@ -29,8 +13,8 @@ describe("legacy eslintrc integration", () => {
     }
     const sourcePath = "tests/fixtures/legacy/invalid.js";
     const target = "tests/fixtures/legacy/invalid.js";
-    const source = fs.readFileSync(path.resolve(__dirname, "../..", sourcePath), "utf8");
-    const result = runEslint([
+    const source = fs.readFileSync(path.resolve(repoRoot, sourcePath), "utf8");
+    const result = runEslintJson([
       disableLookupFlag,
       "--config",
       "tests/fixtures/legacy/.eslintrc.cjs",
@@ -39,10 +23,11 @@ describe("legacy eslintrc integration", () => {
       target,
       "--format",
       "json",
-    ], source);
+    ], { stdin: source });
 
     assert.strictEqual(result.length, 1);
-    assert.strictEqual(result[0].filePath.endsWith(target), true);
+    const reportedPath = toRepoPath(result[0].filePath);
+    assert.strictEqual(reportedPath, target);
     assert.strictEqual(result[0].messages.length, 1);
     assert.strictEqual(
       result[0].messages[0].ruleId,
