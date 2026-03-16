@@ -24,4 +24,16 @@ describe("module export parity", () => {
 
     assert.deepStrictEqual(esmKeys, cjsKeys);
   });
+
+  it("exposes named esm exports and preserves default parity", async () => {
+    const esmModule = await importEsm("../../lib/index.mjs");
+
+    assert.notStrictEqual(esmModule.meta, undefined);
+    assert.notStrictEqual(esmModule.meta, null);
+    assert.notStrictEqual(esmModule.rules, undefined);
+    assert.notStrictEqual(esmModule.rules, null);
+    assert.notStrictEqual(esmModule.configs, undefined);
+    assert.notStrictEqual(esmModule.configs, null);
+    assert.strictEqual(esmModule.default, cjsPlugin);
+  });
 });
