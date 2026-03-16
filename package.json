@@ -23,8 +23,8 @@
     }
   },
   "scripts": {
-    "check:docs": "npm run lint:eslint-docs",
-    "check:pack": "npm pack --dry-run --cache /tmp/eslint-plugin-lodash-specific-import-npm-cache > /dev/null",
+    "check:docs": "yarn lint:eslint-docs",
+    "check:pack": "npm pack --dry-run --cache .npm-cache",
     "lint": "npm-run-all \"lint:*\"",
     "lint:eslint-docs": "npm-run-all \"update:eslint-docs --check \"",
     "lint:js": "eslint . --ignore-pattern \"tests/fixtures/**\"",

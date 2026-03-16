@@ -83,13 +83,15 @@ module.exports = [
 
 * Node.js: `>=20`
 * ESLint: `^8 || ^9 || ^10`
-* Config styles: legacy `.eslintrc*` and flat `eslint.config.*`
+* Config styles:
+  * ESLint 8/9: legacy `.eslintrc*` and flat `eslint.config.*`
+  * ESLint 10: flat `eslint.config.*` only
 * Module support: CommonJS + ESM entrypoints
 
 ### Migration Notes (alpha)
 
 * Prefer the flat config format for new projects.
-* Legacy `.eslintrc*` remains supported during this alpha track.
+* Legacy `.eslintrc*` remains supported for ESLint 8/9 (ESLint 10 is flat-config-only).
 * Rule fixer hardening for alias/mixed-import edge cases is deferred to a follow-up PR.
 
 ---
