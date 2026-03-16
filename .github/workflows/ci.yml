@@ -2,13 +2,6 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
-      - "release/**"
-      - "feat/**"
-      - "chore/**"
-      - "fix/**"
-      - "tests/**"
   pull_request:
 
 jobs:
@@ -32,8 +25,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Pin ESLint major under test
-        run: yarn add --dev eslint@${{ matrix.eslint-version }}
+      - name: Pin ESLint and @eslint/js majors under test
+        run: yarn add --dev eslint@${{ matrix.eslint-version }} @eslint/js@${{ matrix.eslint-version }}
 
       - name: Lint
         run: yarn lint
