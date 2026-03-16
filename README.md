@@ -81,7 +81,7 @@ module.exports = [
 
 ### Compatibility (v2.0.0-alpha track)
 
-* Node.js: `>=20`
+* Node.js: `>=22`
 * ESLint: `^8 || ^9 || ^10`
 * Config styles:
   * ESLint 8/9: legacy `.eslintrc*` and flat `eslint.config.*`
