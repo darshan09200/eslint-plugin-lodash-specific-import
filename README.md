@@ -33,16 +33,51 @@ yarn add --dev eslint-plugin-lodash-specific-import
 
 ## 🚀 Usage
 
-Add to your ESLint config (e.g., `.eslintrc.json`):
+### Legacy Config (`.eslintrc*`, ESLint 8/9 only)
 
 ```json
 {
-  "plugins": ["lodash-specific-import"],
-  "rules": {
-    "lodash-specific-import/no-global": "error"
-  }
+  "extends": ["plugin:lodash-specific-import/recommended"]
 }
 ```
+
+### Flat Config (`eslint.config.*`, ESLint 8/9/10)
+
+#### Recommended
+
+```js
+const lodashSpecificImport = require("eslint-plugin-lodash-specific-import");
+
+module.exports = [
+  ...lodashSpecificImport.configs["flat/recommended"],
+];
+```
+
+#### Manual
+
+```js
+const lodashSpecificImportPlugin = require("eslint-plugin-lodash-specific-import");
+
+module.exports = [
+  {
+    plugins: {
+      "lodash-specific-import": lodashSpecificImportPlugin,
+    },
+    rules: {
+      "lodash-specific-import/no-global": "error",
+    },
+  },
+];
+```
+
+### Compatibility
+
+* Node.js: `>=22`
+* ESLint: `^8 || ^9 || ^10`
+* Config styles:
+  * ESLint 8/9: legacy `.eslintrc*` and flat `eslint.config.*`
+  * ESLint 10: flat `eslint.config.*` only
+* Module support: CommonJS + ESM entrypoints
 
 ---
 
@@ -72,11 +107,13 @@ const lodashEs = require('lodash-es');
 
 <!-- begin auto-generated rules list -->
 
+💼 Configurations enabled in.\
+✅ Set in the `recommended` configuration.\
 🔧 Automatically fixable by the [`--fix` CLI option](https://eslint.org/docs/user-guide/command-line-interface#--fix).
 
-| Name                                 | Description                            | 🔧 |
-| :----------------------------------- | :------------------------------------- | :- |
-| [no-global](docs/rules/no-global.md) | enforce method-specific lodash imports | 🔧 |
+| Name                                 | Description                            | 💼 | 🔧 |
+| :----------------------------------- | :------------------------------------- | :- | :- |
+| [no-global](docs/rules/no-global.md) | enforce method-specific lodash imports | ✅  | 🔧 |
 
 <!-- end auto-generated rules list -->
 
@@ -86,6 +123,18 @@ const lodashEs = require('lodash-es');
 
 Importing all of lodash can significantly bloat your JS bundle.
 This plugin ensures you only import the functions you need, improving performance and clarity.
+
+---
+
+## 🔄 Migration
+
+Moving from v1 to v2?
+
+* Prefer flat config for new projects.
+* Legacy `.eslintrc*` remains available for ESLint 8/9.
+* ESLint 10 requires flat config.
+* Fixer now supports alias imports and mixed type/value specifiers; a few complex edge cases (for example, intricate re-exports or unusual namespace/default combinations) may still require manual review and will be hardened in a follow-up PR.
+* Full guide: [Migrate to v2](docs/migration/migrate-to-v2.md)
 
 ---
 
