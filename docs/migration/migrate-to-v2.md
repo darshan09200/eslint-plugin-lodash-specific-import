@@ -73,4 +73,4 @@ module.exports = [
 
 1. Prefer flat config for new setups.
 2. Legacy `.eslintrc*` is kept for ESLint 8/9 only.
-3. Rule-fixer hardening for alias/mixed-import edge cases is deferred to a follow-up PR.
+3. The rule fixer now supports aliased named imports (for example, `import { map as m } from "lodash";`) and mixed value/type imports; only remaining unusual alias/mixed-import edge cases are deferred to a follow-up PR.

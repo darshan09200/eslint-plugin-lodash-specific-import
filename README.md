@@ -133,7 +133,7 @@ Moving from v1 to v2?
 * Prefer flat config for new projects.
 * Legacy `.eslintrc*` remains available for ESLint 8/9.
 * ESLint 10 requires flat config.
-* Rule-fixer hardening for alias/mixed-import edge cases is deferred to a follow-up PR.
+* Fixer now supports alias imports and mixed type/value specifiers; a few complex edge cases (for example, intricate re-exports or unusual namespace/default combinations) may still require manual review and will be hardened in a follow-up PR.
 * Full guide: [Migrate to v2](docs/migration/migrate-to-v2.md)
 
 ---
