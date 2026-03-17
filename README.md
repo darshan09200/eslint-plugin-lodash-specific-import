@@ -33,7 +33,7 @@ yarn add --dev eslint-plugin-lodash-specific-import
 
 ## 🚀 Usage
 
-### Use Recommended Config (Legacy `.eslintrc*`)
+### Legacy Config (`.eslintrc*`, ESLint 8/9 only)
 
 ```json
 {
@@ -41,7 +41,9 @@ yarn add --dev eslint-plugin-lodash-specific-import
 }
 ```
 
-### Use Recommended Config (Flat `eslint.config.js`)
+### Flat Config (`eslint.config.*`, ESLint 8/9/10)
+
+#### Recommended
 
 ```js
 const lodashSpecificImport = require("eslint-plugin-lodash-specific-import");
@@ -51,18 +53,7 @@ module.exports = [
 ];
 ```
 
-### Manual Rule Configuration
-
-```json
-{
-  "plugins": ["lodash-specific-import"],
-  "rules": {
-    "lodash-specific-import/no-global": "error"
-  }
-}
-```
-
-### Flat Config (`eslint.config.cjs` / `eslint.config.js`)
+#### Manual
 
 ```js
 const lodashSpecificImportPlugin = require("eslint-plugin-lodash-specific-import");
@@ -79,7 +70,7 @@ module.exports = [
 ];
 ```
 
-### Compatibility (v2.0.0-alpha track)
+### Compatibility
 
 * Node.js: `>=22`
 * ESLint: `^8 || ^9 || ^10`
