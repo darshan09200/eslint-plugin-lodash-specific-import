@@ -90,7 +90,8 @@ const parserSpecificInvalidCases = canRunImportKindCases
               parser: typescriptParser,
             },
             errors: [{ messageId: "invalidImport" }],
-            output: "import debounce from 'lodash/debounce';",
+            output:
+              "import debounce from 'lodash/debounce';\nimport { type isEqual } from 'lodash';",
           }
         : {
             code: "import { debounce, type isEqual } from 'lodash';",
@@ -100,7 +101,31 @@ const parserSpecificInvalidCases = canRunImportKindCases
               sourceType: "module",
             },
             errors: [{ messageId: "invalidImport" }],
-            output: "import debounce from 'lodash/debounce';",
+            output:
+              "import debounce from 'lodash/debounce';\nimport { type isEqual } from 'lodash';",
+          },
+      eslintMajor >= 9
+        ? {
+            code: "import { debounce, type isEqual } from 'lodash-es';",
+            languageOptions: {
+              ecmaVersion: 2022,
+              sourceType: "module",
+              parser: typescriptParser,
+            },
+            errors: [{ messageId: "invalidImport" }],
+            output:
+              "import debounce from 'lodash-es/debounce';\nimport { type isEqual } from 'lodash-es';",
+          }
+        : {
+            code: "import { debounce, type isEqual } from 'lodash-es';",
+            parser: typescriptParserPath,
+            parserOptions: {
+              ecmaVersion: 2022,
+              sourceType: "module",
+            },
+            errors: [{ messageId: "invalidImport" }],
+            output:
+              "import debounce from 'lodash-es/debounce';\nimport { type isEqual } from 'lodash-es';",
           },
     ]
   : [];
@@ -117,6 +142,11 @@ ruleTester.run("lodash-specific-import/no-global", rule, {
       code: "import { map } from 'lodash';",
       errors: [{ messageId: "invalidImport" }],
       output: "import map from 'lodash/map';",
+    },
+    {
+      code: "import { map as m } from 'lodash';",
+      errors: [{ messageId: "invalidImport" }],
+      output: "import m from 'lodash/map';",
     },
     {
       code: "import {isEmpty, map} from 'lodash';",
@@ -143,6 +173,11 @@ ruleTester.run("lodash-specific-import/no-global", rule, {
       code: "import { map } from 'lodash-es';",
       errors: [{ messageId: "invalidImport" }],
       output: "import map from 'lodash-es/map';",
+    },
+    {
+      code: "import { map as m } from 'lodash-es';",
+      errors: [{ messageId: "invalidImport" }],
+      output: "import m from 'lodash-es/map';",
     },
     {
       code: "import {isEmpty, map} from 'lodash-es';",
