@@ -21,6 +21,10 @@ describe("plugin export shape", () => {
     });
 
     assert(Array.isArray(plugin.configs["flat/recommended"]));
+    assert.strictEqual(
+      plugin.configs["flat/recommended"][0].name,
+      "lodash-specific-import/flat/recommended"
+    );
     assert.strictEqual(plugin.configs["flat/recommended"][0].plugins["lodash-specific-import"], plugin);
     assert.deepStrictEqual(plugin.configs["flat/recommended"][0].rules, {
       "lodash-specific-import/no-global": "error",

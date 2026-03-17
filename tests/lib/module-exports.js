@@ -1,7 +1,10 @@
 const assert = require("assert");
+const { resolve } = require("path");
+const { pathToFileURL } = require("url");
 
 const cjsPlugin = require("../../lib/index.js");
-const importEsm = new Function("path", "return import(path);");
+const importEsm = (relativePath) =>
+  import(pathToFileURL(resolve(__dirname, relativePath)).href);
 
 describe("module export parity", () => {
   it("loads plugin via cjs require", () => {
@@ -23,5 +26,17 @@ describe("module export parity", () => {
     const esmKeys = Object.keys(esmModule.default).sort();
 
     assert.deepStrictEqual(esmKeys, cjsKeys);
+  });
+
+  it("exposes named esm exports and preserves default parity", async () => {
+    const esmModule = await importEsm("../../lib/index.mjs");
+
+    assert.notStrictEqual(esmModule.meta, undefined);
+    assert.notStrictEqual(esmModule.meta, null);
+    assert.notStrictEqual(esmModule.rules, undefined);
+    assert.notStrictEqual(esmModule.rules, null);
+    assert.notStrictEqual(esmModule.configs, undefined);
+    assert.notStrictEqual(esmModule.configs, null);
+    assert.strictEqual(esmModule.default, cjsPlugin);
   });
 });
