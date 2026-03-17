@@ -6,7 +6,7 @@ module.exports = [
   {
     ignores: ["node_modules/**", "tests/fixtures/**", ".npm-cache/**"],
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: 2022,
       sourceType: "script",
       globals: {
         __dirname: "readonly",
